@@ -9,7 +9,7 @@ const path = require('path')
 const PORT = process.env.PORT || 3500
 
 // tell the server to serve static files (HTML, CSS, and JS files) from the ‘public’ directory when the client navigates to the root URL (/).
-app.use('/', express.static(path.join(__dirname, '/public')))
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 // import a router object from the ‘root’ module in the ‘routes’ directory and mounts it at the root URL (/)
 app.use('/', require('./routes/root'))
