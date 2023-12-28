@@ -1,14 +1,16 @@
-// import the Express.js module and create an Express.js application
-const express = require('express')
+const express = require('express') // import the Express.js module and create an Express.js application
 const app = express()
+const path = require('path')// import the built-in Node.js ‘path’ module
+const { logger } = require('./middleware/logger')
+const errorHandler = require('./middleware/errorHandler')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
+const PORT = process.env.PORT || 3500 // set the port on which the server will listen
 
-// import the built-in Node.js ‘path’ module
-const path = require('path')
-
-// set the port on which the server will listen
-const PORT = process.env.PORT || 3500
-
+app.use(logger)
+app.use(cors())
 app.use(express.json())
+app.use(cookieParser())
 
 // tell the server to serve static files (HTML, CSS, and JS files) from the ‘public’ directory when the client navigates to the root URL (/).
 app.use('/', express.static(path.join(__dirname, 'public')))
@@ -27,6 +29,8 @@ app.all('*', (req, res) => {
         res.type('txt').send('404 Not Found')
     }
 })
+
+app.use(errorHandler)
 
 // starts the server and makes it listen for requests on the specified port
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
