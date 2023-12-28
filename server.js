@@ -8,6 +8,8 @@ const path = require('path')
 // set the port on which the server will listen
 const PORT = process.env.PORT || 3500
 
+app.use(express.json())
+
 // tell the server to serve static files (HTML, CSS, and JS files) from the ‘public’ directory when the client navigates to the root URL (/).
 app.use('/', express.static(path.join(__dirname, 'public')))
 
